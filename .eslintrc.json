@@ -1,0 +1,56 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "prettier",
+    "cypress"
+  ],
+  "env": {
+    "browser": true,
+    "commonjs": true,
+    "es6": true,
+    "jest": true,
+    "node": true,
+    "cypress/globals": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "prettier",
+    "plugin:react/recommended"
+  ],
+  "rules": {
+    "react/jsx-uses-react": 1,
+    "prettier/prettier": [
+      "warn",
+      {
+        "singleQuote": true,
+        "tabWidth": 2,
+        "bracketSpacing": true,
+        "printWidth": 100,
+        "jsxBracketSameLine": true
+      }
+    ],
+    "no-unused-vars": [
+      "warn",
+      {
+        "ignoreRestSiblings": true
+      }
+    ],
+    "no-console": [
+      "warn",
+      {
+        "allow": [
+          "warn"
+        ]
+      }
+    ]
+  },
+  "globals": {
+  }
+}
