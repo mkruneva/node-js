@@ -13,6 +13,7 @@
   "author": "Marta Kruneva",
   "license": "ISC",
   "dependencies": {
+    "@types/node": "^11.9.4",
     "eslint": "^5.14.1",
     "eslint-config-prettier": "^4.0.0",
     "prettier": "^1.16.4",

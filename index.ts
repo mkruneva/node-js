@@ -1,7 +1,5 @@
-const rect = {
-  perimeter: (x: number, y: number) => (2 * (x + y)),
-  area: (x: number, y: number) => (x*y)
-}
+// const rect = require('./reactangle');
+import * as rect from './reactangle';
 
 function solveRect (l: number, b: number){
   console.log('Solving Reactangle with l and b ', l, b);
