@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "tsc": "tsc",
-    "start": "node build/index.js",
+    "dev": "ts-node-dev --respawn --transpileOnly ./index.ts",
+    "prod": "tsc && node ./build/index.js",
     "lint": "eslint"
   },
   "author": "Marta Kruneva",
@@ -15,6 +16,7 @@
     "eslint": "^5.14.1",
     "eslint-config-prettier": "^4.0.0",
     "prettier": "^1.16.4",
+    "ts-node-dev": "^1.0.0-pre.32",
     "typescript": "^3.3.3333"
   }
 }
