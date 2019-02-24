@@ -1,15 +1,21 @@
 // const rect = require('./reactangle');
-import * as rect from './reactangle';
+import rect from './reactangle';
+
+interface Options {
+  area: Function
+  perimeter: Function
+}
 
 function solveRect (l: number, b: number){
-  console.log('Solving Reactangle with l and b ', l, b);
-
-  if (l <= 0 || b <= 0) {
-    console.log('reactangle dimentions should be greater than 0');
-  } else {
-    console.log('the area of rectange is ', rect.area(l, b));
-    console.log('the perimeter of rectange is ', rect.perimeter(l, b));
-  }
+  rect(l, b, (err: Error, rectangle: Options) => {
+    console.log('Solving Reactangle with l and b ', l, b);
+    if (err) {
+      console.log('ERROR: ', err.message);
+    } else {
+      console.log('Rect area is : ', rectangle.area());
+      console.log('Rect perimeter is : ', rectangle.perimeter());
+    }
+  });
 }
 
 solveRect(2, 4);
