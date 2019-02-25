@@ -1,0 +1,12 @@
+{
+  "name": "node-express",
+  "version": "1.0.0",
+  "description": "Node Express server",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "start": "node index"
+  },
+  "author": "M Kruneva",
+  "license": "ISC"
+}
