@@ -6,9 +6,12 @@ const hostname = 'localhost';
 const port = 3000;
 
 const app = express();
-app.use(morgan('dev'));
 
+app.use(morgan('dev'));
 app.use(express.static(`${__dirname}/public`));
+
+app.use((req, res, next) => {
+
 
 app.use((req, res, next) => {
     res.setHeader('Content-Type', 'text/html');
