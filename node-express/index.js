@@ -35,6 +35,24 @@ app.delete('/dishes', (req, res) => {
   res.end('DELETING all dishes');
 });
 
+app.get('/dishes/:dishId', (req, res) => {
+  res.end(`will send details of the dish ${req.params.dishId}`);
+});
+
+app.post('/dishes/:dishId', (req, res) => {
+  res.statusCode = 403; // 403 not supported
+  res.end('POST operation not supported on specific dish id');
+});
+
+app.put('/dishes/:dishId', (req, res) => {
+  res.write(`Updating dish ${req.params.dishId}`);
+  res.end(`will update the details of the dish ${req.params.name} ${req.params.dishId}`);
+});
+
+app.delete('/dishes/:dishId', (req, res) => {
+  res.end(`Will delete dish ${req.params.dishId}`);
+});
+
 app.use(express.static(`${__dirname}/public`));
 app.use((req, res, next) => {
     res.setHeader('Content-Type', 'text/html');
