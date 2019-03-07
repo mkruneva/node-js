@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const dishRouter = express.Router();
+dishRouter.use(bodyParser.json());
 
 dishRouter.route('/')
   .all((req, res, next) => {
@@ -25,3 +26,24 @@ dishRouter.route('/')
     res.end('DELETING all dishes');
   });
 
+  //////////////// ids ///////////////////////
+  // app.get('/dishes/:dishId', (req, res) => {
+  //   res.end(`will send details of the dish ${req.params.dishId}`);
+  // });
+
+  // app.post('/dishes/:dishId', (req, res) => {
+  //   res.statusCode = 403; // 403 not supported
+  //   res.end('POST operation not supported on specific dish id');
+  // });
+
+  // app.put('/dishes/:dishId', (req, res) => {
+  //   res.write(`Updating dish ${req.params.dishId} `);
+  //   res.end(`will update the details of the dish ${req.body.name} ${req.params.dishId}`);
+  // });
+
+  // app.delete('/dishes/:dishId', (req, res) => {
+  //   res.end(`Will delete dish ${req.params.dishId}`);
+  // });
+  //////////////// ids ///////////////////////
+
+  module.exports = dishRouter;
