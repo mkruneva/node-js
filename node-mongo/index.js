@@ -39,25 +39,4 @@ MongoClient.connect(url, (err, client) => {
       })
     });
   });
-
-  // const collection = db.collection('dishes');
-
-  // collection.insertOne({ "name": "New Dish", "description": "New test"}, (err, result) => {
-  //   assert.equal(err, null);
-  //   console.log('After insert:\n');
-  //   console.log(result.ops);
-
-  //   // search all objects
-  //   collection.find({}).toArray((err, docs) => {
-  //     assert.equal(err, null);
-  //     console.log('Found:\n');
-  //     console.log(docs);
-
-  //     db.dropCollection('dishes', (err, result) => {
-  //       assert.equal(err, null);
-
-  //       client.close();
-  //     })
-  //   });
-  // });
 })
