@@ -5,8 +5,8 @@ const dboper = require('./operations');
 const url = 'mongodb://localhost:27017/';
 const dbname = 'confusion';
 
-MongoClient.connect(url, (err, client) => {
-  assert.equal(err, null); // assert if err is equal to null, e.g. check
+MongoClient.connect(url)
+.then(client => {
   console.log('Connected to server');
 
   const db = client.db(dbname);
@@ -14,29 +14,30 @@ MongoClient.connect(url, (err, client) => {
     "name": "New Dish",
     "description": "Initial test"
   }
-  dboper.insertDocument(db, docToInsert, 'dishes', res => {
-    console.log(`Insert document:\n ${JSON.stringify(res.ops)}`);
-
-    dboper.findDocuments(db, 'dishes', res => {
+  dboper.insertDocument(db, docToInsert, 'dishes')
+    .then(res => {
+      console.log(`Insert document:\n ${JSON.stringify(res.ops)}`);
+      return dboper.findDocuments(db, 'dishes');
+    })
+    .then(res => {
       console.log(`Documents found:\n ${JSON.stringify(res)}`);
-
-      dboper.updateDocument(db, {"name": "New Dish"}, {"description": "Updated test"}, 'dishes', res => {
-        console.log(`Document updated:\n ${JSON.stringify(res)}`);
-
-        dboper.removeDocument(db, {"name": "New Dish"}, 'dishes', res => {
-          console.log(JSON.stringify(res));
-
-             dboper.findDocuments(db, 'dishes', res => {
-                console.log(`Documents found after all:\n ${JSON.stringify(res)}`);
-
-                db.dropCollection('dishes', res => {
-                  console.log(JSON.stringify(res));
-
-                  client.close();
-                })
-             })
-        })
-      })
-    });
-  });
+      return dboper.updateDocument(db, {"name": "New Dish"}, {"description": "Updated test"}, 'dishes');
+    })
+    .then(res => {
+      console.log(`Document updated:\n ${JSON.stringify(res)}`);
+      return dboper.removeDocument(db, {"name": "New Dish"}, 'dishes');
+    })
+    .then(res => {
+      console.log(JSON.stringify(res));
+      return dboper.findDocuments(db, 'dishes');
+    })
+    .then(res => {
+      console.log(`Documents found after all:\n ${JSON.stringify(res)}`);
+      return db.dropCollection('dishes');
+    })
+    .then(res => {
+      console.log(JSON.stringify(res));
+      client.close();
+    })
 })
+.catch(err => console.log('err ', err));
