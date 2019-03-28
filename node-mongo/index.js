@@ -5,7 +5,9 @@ const dboper = require('./operations');
 const url = 'mongodb://localhost:27017/';
 const dbname = 'confusion';
 
-MongoClient.connect(url)
+MongoClient.connect(url, {
+  useNewUrlParser: true
+})
 .then(client => {
   console.log('Connected to server');
 
