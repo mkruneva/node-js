@@ -7,12 +7,11 @@ const connect = mongoose.connect(url, {
 });
 connect.then(db => {
   console.log('connected to server ');
-  const newDish = Dishes({
-    name: 'name testing mongoose',
-    description: 'description testing mongoose',
-  });
-
-  newDish.save()
+  Dishes
+    .create({
+      name: 'name testing mongoose',
+      description: 'description testing mongoose',
+    })
     .then(dish => {
       console.log('dish ', dish);
 
