@@ -11,14 +11,38 @@ connect.then(db => {
     .create({
       name: 'name testing mongoose',
       description: 'description testing mongoose',
+      comments: [
+        {
+          rating: 2,
+          comment: 'good',
+          author: 'me'
+        }
+      ]
     })
     .then(dish => {
       console.log('dish ', dish);
 
-      return Dishes.find({}).exec();
+      return Dishes.findByIdAndUpdate(dish._id,
+      {
+        $set: { description: ' UPDATED test'},
+      }, {
+          new: true
+      }).exec();
+    })
+    .then(dish => {
+      console.log('updated dish ', dish);
+      dish.comments.push(
+        {
+          rating: 5,
+          comment: 'veeery good',
+          author: 'not me'
+        }
+      );
+
+      return dish.save();
     })
     .then(dishes => {
-      console.log('dishes ', dishes);
+      console.log('updated dishes ', dishes);
 
       return Dishes.deleteMany();
     })
