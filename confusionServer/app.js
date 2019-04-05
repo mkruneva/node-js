@@ -10,6 +10,22 @@ const dishRouter = require('./routes/dishRouter');
 const promoRouter = require('./routes/promoRouter');
 const leaderRouter = require('./routes/leaderRouter');
 
+const mongoose = require('mongoose');
+
+const url = 'mongodb://localhost:27017/confusion';
+
+const connect = mongoose.connect(url, {
+  useNewUrlParser: true
+});
+
+connect
+  .then(db => {
+    console.log('connected to server ', db);
+  })
+  .catch(err => {
+    console.log('err ', err);
+  })
+
 const app = express();
 
 // view engine setup
