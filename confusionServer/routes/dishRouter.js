@@ -46,12 +46,12 @@ dishRouter.route('/')
   });
 
   dishRouter.route('/:dishId')
-  .get((req, res) => {
+  .get((req, res, next) => {
     Dishes.findById(req.params.dishId)
       .then(dish => {
         res.statusCode = 200;
         res.setHeader('Content-Type', 'application/json');
-        res.json(res);
+        res.json(dish);
       })
       .catch(err => next(err));
   })
@@ -59,7 +59,7 @@ dishRouter.route('/')
     res.statusCode = 403; // 403 not supported
     res.end('POST operation not supported on specific dish id');
   })
-  .put((req, res) => {
+  .put((req, res, next) => {
     Dishes.findByIdAndUpdate(
         req.params.dishId,
         { $set: req.body },
@@ -72,7 +72,7 @@ dishRouter.route('/')
       })
       .catch(err => next(err));
   })
-  .delete((req, res) => {
+  .delete((req, res, next) => {
     Dishes.findByIdAndRemove(req.params.dishId)
       .then(res => {
         res.statusCode = 200;
