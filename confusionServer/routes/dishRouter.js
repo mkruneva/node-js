@@ -99,33 +99,45 @@ dishRouter.route('/:dishId/comments')
       .catch(err => console.log(err));
   })
   .post((req, res) => {
-    Dishes.create(req.body)
+    Dishes.findById(req.params.dishId)
       .then(dish => {
-        console.log('create dish', dish);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(dish);
-      })
-      .catch(err => {
-        res.statusCode = 400;
-        res.json(err);
-      });
+          if (dish) {
+            dish.comments.push(req.body);
+            dish.save().then(dish =>{
+              res.statusCode = 200;
+              res.setHeader('Content-Type', 'application/json');
+              res.json(dish);
+            });
+          } else {
+            const err = new Error(`Dish ${req.params.dishId} not found`);
+            err.status = 404;
+            return next(err);
+          }
+        })
+        .catch(err => console.log(err));
   })
   .put((req, res) => {
     res.statusCode = 403;
-    res.end('PUT operation not supported on dishes');
+    res.end('PUT operation not supported on comments');
   })
   // to be restricted later
   .delete((req, res) => {
-    // Dishes.remove({})
-    Dishes.remove({})
-      .then(res => {
-        console.log('deleting all dishes', res);
-        res.statusCode = 200;
-        res.setHeader('Content-Type', 'application/json');
-        res.json(res);
+    Dishes.findById(req.params.dishId)
+      .then(dish => {
+        if (dish) {
+          dish.comments.map(c => c._id.remove());
+          dish.save().then(dish => {
+            res.statusCode = 200;
+            res.setHeader('Content-Type', 'application/json');
+            res.json(dish);
+          });
+        } else {
+          const err = new Error(`Dish ${req.params.dishId} not found`);
+          err.status = 404;
+          return next(err);
+        }
       })
-      .catch(err => next(err));
+      .catch(err => console.log(err));
   });
 
 dishRouter.route('/:dishId/comments/:commentId')
