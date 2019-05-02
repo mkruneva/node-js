@@ -10,31 +10,6 @@ const app = express();
 app.use(morgan('dev'));
 app.use(bodyParser.json());
 
-app.all('/dishes', (req, res, next) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  next();  // continue to look for more specs
-});
-
-app.get('/dishes', (req, res) => {
-  res.end('will send all dishes');
-});
-
-app.post('/dishes', (req, res) => {
-  // body is parsed with body-parser
-  res.end(`will add the dish ${req.body.name} with details ${req.body.description}`);
-});
-
-app.put('/dishes', (req, res) => {
-  res.statusCode = 403; // 403 not supported
-  res.end('PUT operation not supported on dishes');
-});
-
-// to be restricted later
-app.delete('/dishes', (req, res) => {
-  res.end('DELETING all dishes');
-});
-
 app.get('/dishes/:dishId', (req, res) => {
   res.end(`will send details of the dish ${req.params.dishId}`);
 });
